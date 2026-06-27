@@ -24,7 +24,7 @@ def test_google_web(driver):
     assert driver.current_url == url
 
 
-def test_github_openweb(driver):
+def test_github_openweb(driver): # помогите
     url = "https://github.com/"
     driver.get(url)
     assert driver.title == "GitHub · Change is constant. GitHub keeps you ahead. · GitHub"
