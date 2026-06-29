@@ -14,4 +14,4 @@ elif c == "/":
     else:
         print(a/b)
 else:
-    print("Неверная операция")
+    print("Неверная операция!")
