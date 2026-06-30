@@ -19,24 +19,35 @@ def test01():
         full_name_field = driver.find_element(By.ID, "userName")
         # web_elements = driver.find_elements(By.XPATH, "someXPath")
 
-        full_name_field.send_keys("")
+        full_name_field.send_keys("andrey@guru.com")
 
         # Находим поле Email по его ID и вводим текст
         email_field = driver.find_element(By.ID, "userEmail")
-        email_field.send_keys("ivan$example.com")
+        email_field.send_keys("andrey@guru.com")
+
+        # 4. Находим поле Current Address и заполняем форму
+        current_address_field = driver.find_element(By.ID, "currentAddress")
+        current_address_field.send_keys("andrey@guru.com")
+
+        #5. Находим поле Permanent Address и заполняем его
+
+        permanent_address_field = driver.find_element(By.ID, "permanentAddress")
+        permanent_address_field.send_keys("andrey@guru.com")
+
 
         # Находим кнопку Submit по ее ID и кликаем
+
         submit_button = driver.find_element(By.ID, "submit")
         submit_button.click()
 
-        # 4. Проверка результата
+        # . Проверка результата
         time.sleep(5)  # Пауза, чтобы увидеть результат отправки
 
         # Находим блок с отправленными данными
         result_box = driver.find_element(By.ID, "output")
 
         # Проверяем, что в блоке результата появился введенный текст
-        assert "ivanexample.com" in result_box.text
+        assert "Город Москва; улица Сталина, дом 70, квартира 89" in result_box.text
         print("Тест успешно пройден!")
 
     finally:

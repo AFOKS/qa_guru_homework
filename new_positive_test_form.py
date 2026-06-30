@@ -26,11 +26,11 @@ def test01():
         email_field = driver.find_element(By.ID, "userEmail")
         email_field.send_keys("andrey@guru.com")
 
-        # 4. Находим блок Current Address и заполняем форму
+        # 4. Находим поле Current Address и заполняем форму
         current_address_field = driver.find_element(By.ID, "currentAddress")
         current_address_field.send_keys("Город Москва; улица Ленина, дом 15, квартира 20")
 
-        #5. Находим блок Permanent Address и заполняем его
+        #5. Находим поле Permanent Address и заполняем его
 
         permanent_address_field = driver.find_element(By.ID, "permanentAddress")
         permanent_address_field.send_keys("Город Москва; улица Сталина, дом 70, квартира 89")
