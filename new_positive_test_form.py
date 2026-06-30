@@ -48,7 +48,7 @@ def test01():
         result_box = driver.find_element(By.ID, "output")
 
         # Проверяем, что в блоке результата появился введенный текст
-        assert "Город Москва; улица Ленина, дом 15, квартира 20" in result_box.text
+        assert "Город Москва; улица Сталина, дом 70, квартира 89" in result_box.text
         print("Тест успешно пройден!")
 
     finally:
