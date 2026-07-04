@@ -38,6 +38,7 @@ class TableElement:
 
 
 # 2. Пример использования (Скрипт теста)
+
 if __name__ == "__main__":
     # Инициализация драйвера
     driver = webdriver.Chrome()
@@ -74,3 +75,117 @@ if __name__ == "__main__":
         driver.quit()
 
 
+# 1. Тест с измененными данными. Выводим значение "Email из последней строки и 3 колонки"
+
+if __name__ == "__main__":
+    # Инициализация драйвера
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    driver.implicitly_wait(5)
+
+    try:
+        # Открытие страницы
+        driver.get("https://the-internet.herokuapp.com/tables")
+
+        # Инициализация таблицы как Page Element через её локатор
+        table1_locator = (By.ID, "table1")
+        table = TableElement(driver, table1_locator)
+
+        # Сбор данных для демонстрации
+        headers = table.get_headers()
+        first_row = table.get_row_data(0)
+        specific_cell = table.get_cell_value(row_index=3, column_index=2)  # Строка 4, Колонка 3 Email)
+
+        # Вывод результатов в консоль
+        print("Заголовки таблицы:", headers)
+        print("Первая строка данных:", first_row)
+        print(f"Значение в строке 4, колонке 'Email': {specific_cell}")
+
+        # Простые проверки (Assertions)
+        assert "Last Name" in headers, "Заголовок 'Last Name' не найден"
+        assert "Smith" in first_row, "Фамилия 'Smith' должна быть в первой строке"
+        assert specific_cell == "tconway@earthlink.net", f"Ожидалось tconway@earthlink.net, но получено {specific_cell}"
+
+        print("\n✅ Тест успешно пройден!")
+        time.sleep(5)
+
+    finally:
+        driver.quit()
+
+
+
+# 1.2 Тест с измененными данными. Выводим значение "Web site" из последней строки и 4 колонки"
+
+if __name__ == "__main__":
+    # Инициализация драйвера
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    driver.implicitly_wait(5)
+
+    try:
+        # Открытие страницы
+        driver.get("https://the-internet.herokuapp.com/tables")
+
+        # Инициализация таблицы как Page Element через её локатор
+        table1_locator = (By.ID, "table1")
+        table = TableElement(driver, table1_locator)
+
+        # Сбор данных для демонстрации
+        headers = table.get_headers()
+        first_row = table.get_row_data(0)
+        specific_cell = table.get_cell_value(row_index=0, column_index=4)  # Строка 1, Колонка 4 (Web site)
+
+        # Вывод результатов в консоль
+        print("Заголовки таблицы:", headers)
+        print("Первая строка данных:", first_row)
+        print(f"Значение в строке 1, колонке 'Web site': {specific_cell}")
+
+        # Простые проверки (Assertions)
+        assert "Last Name" in headers, "Заголовок 'Last Name' не найден"
+        assert "Smith" in first_row, "Фамилия 'Smith' должна быть в первой строке"
+        assert specific_cell == "http://www.jsmith.com", f"Ожидалось http://www.jsmith.com, но получено {specific_cell}"
+
+        print("\n✅ Тест успешно пройден!")
+        time.sleep(5)
+
+    finally:
+        driver.quit()
+
+
+# 1.3 Тест с измененными данными. Выводим значение "Actions" из строки 2 и 4 колонки"
+# Выводим значение строки 4
+
+if __name__ == "__main__":
+    # Инициализация драйвера
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    driver.implicitly_wait(5)
+
+    try:
+        # Открытие страницы
+        driver.get("https://the-internet.herokuapp.com/tables")
+
+        # Инициализация таблицы как Page Element через её локатор
+        table1_locator = (By.ID, "table1")
+        table = TableElement(driver, table1_locator)
+
+        # Сбор данных для демонстрации
+        headers = table.get_headers()
+        four_row = table.get_row_data(3)
+        specific_cell = table.get_cell_value(row_index=1, column_index=5)  # Строка 2, Колонка 5 (Action)
+
+        # Вывод результатов в консоль
+        print("Заголовки таблицы:", headers)
+        print("Четвертая строка данных:", four_row)
+        print(f"Значение в строке 2, колонке 'Actions': {specific_cell}")
+
+        # Простые проверки (Assertions)
+        assert "Last Name" in headers, "Заголовок 'Last Name' не найден"
+        assert "Conway" in four_row, "Фамилия 'Conway' должна быть в первой строке"
+        assert specific_cell == "edit delete", f"Ожидалось edit delete, но получено {specific_cell}"
+
+        print("\n✅ Тест успешно пройден!")
+        time.sleep(5)
+
+    finally:
+        driver.quit()
