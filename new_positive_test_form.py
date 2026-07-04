@@ -33,7 +33,7 @@ def test01():
         #5. Находим поле Permanent Address и заполняем его
 
         permanent_address_field = driver.find_element(By.ID, "permanentAddress")
-        permanent_address_field.send_keys("Город Москва; улица Сталина, дом 70, квартира 89")
+        permanent_address_field.send_keys("Город Москва; улица Пушкина, дом 70, квартира 89")
 
 
         # Находим кнопку Submit по ее ID и кликаем
@@ -48,7 +48,7 @@ def test01():
         result_box = driver.find_element(By.ID, "output")
 
         # Проверяем, что в блоке результата появился введенный текст
-        assert "Город Москва; улица Сталина, дом 70, квартира 89" in result_box.text
+        assert "Город Москва; улица Пушкина, дом 70, квартира 89" in result_box.text
         print("Тест успешно пройден!")
 
     finally:
