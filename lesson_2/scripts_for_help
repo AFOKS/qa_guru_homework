@@ -1,0 +1,17 @@
+# Скрипт, чтобы узнать значения row_index у всей таблицы
+
+document.querySelectorAll('tr').forEach((row, index) => {
+  console.log(`Текст строки: "${row.innerText.trim()}", rowIndex: ${row.rowIndex}`);
+});
+
+# Скрипт, чтобы узнать значения column_index у всей таблицы
+
+// Находим все ячейки в таблице
+const cells = document.querySelectorAll('td, th');
+
+cells.forEach(cell => {
+  cell.addEventListener('click', function() {
+    // cellIndex возвращает индекс столбца (начиная с 0)
+    console.log('Column Index:', this.cellIndex);
+  });
+});
