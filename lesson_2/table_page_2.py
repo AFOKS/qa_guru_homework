@@ -164,7 +164,7 @@ if __name__ == "__main__":
         # Сбор данных для демонстрации
         headers = table.get_headers()
         first_row = table.get_row_data(0) # строка 1
-        specific_cell = table.get_cell_value(row_index=1, column_index=2)  # Строка 2, Колонка 3 (Due)
+        specific_cell = table.get_cell_value(row_index=1, column_index=2)  # Строка 2, Колонка 3 (Email)
 
         # Вывод результатов в консоль
         print("Заголовки таблицы:", headers)
