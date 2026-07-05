@@ -3,11 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 
-#  4) Переписать используя PageFactory (Lesson 5)
-
-#  2) Добавить работу с таблицей 2
-#  3) Добавить TC в которых идет работа сразу с 2-я таблицами
-
 # 1. Реализация Page Element для таблицы
 class TableElement:
     def __init__(self, driver, locator):
@@ -68,14 +63,14 @@ if __name__ == "__main__":
         assert "Smith" in first_row, "Фамилия 'Smith' должна быть в первой строке"
         assert specific_cell == "$100.00", f"Ожидалось $100.00, но получено {specific_cell}"
 
-        print("\n✅ Тест успешно пройден!")
+        print("\n✅ Тест №1 успешно пройден!")
         time.sleep(5)
 
     finally:
         driver.quit()
 
 
-# 1. Тест с измененными данными. Выводим значение "Email из последней строки и 3 колонки"
+ # Тест #2  с измененными данными. Выводим значение "Email из последней строки и 3 колонки"
 
 if __name__ == "__main__":
     # Инициализация драйвера
@@ -106,7 +101,7 @@ if __name__ == "__main__":
         assert "Smith" in first_row, "Фамилия 'Smith' должна быть в первой строке"
         assert specific_cell == "tconway@earthlink.net", f"Ожидалось tconway@earthlink.net, но получено {specific_cell}"
 
-        print("\n✅ Тест успешно пройден!")
+        print("\n✅ Тест №2 успешно пройден!")
         time.sleep(5)
 
     finally:
@@ -114,7 +109,7 @@ if __name__ == "__main__":
 
 
 
-# 1.2 Тест с измененными данными. Выводим значение "Web site" из последней строки и 4 колонки"
+#  Тест №3 с измененными данными. Выводим значение "Web site" из последней строки и 4 колонки"
 
 if __name__ == "__main__":
     # Инициализация драйвера
@@ -145,14 +140,14 @@ if __name__ == "__main__":
         assert "Smith" in first_row, "Фамилия 'Smith' должна быть в первой строке"
         assert specific_cell == "http://www.jsmith.com", f"Ожидалось http://www.jsmith.com, но получено {specific_cell}"
 
-        print("\n✅ Тест успешно пройден!")
+        print("\n✅ Тест №3 успешно пройден!")
         time.sleep(5)
 
     finally:
         driver.quit()
 
 
-# 1.3 Тест с измененными данными. Выводим значение "Actions" из строки 2 и 4 колонки"
+# Тест №4 с измененными данными. Выводим значение "Actions" из строки 2 и 4 колонки"
 # Выводим значение строки 4
 
 if __name__ == "__main__":
@@ -181,10 +176,10 @@ if __name__ == "__main__":
 
         # Простые проверки (Assertions)
         assert "Last Name" in headers, "Заголовок 'Last Name' не найден"
-        assert "Conway" in four_row, "Фамилия 'Conway' должна быть в первой строке"
+        assert "Conway" in four_row, "Фамилия 'Conway' должна быть в четвертой строке"
         assert specific_cell == "edit delete", f"Ожидалось edit delete, но получено {specific_cell}"
 
-        print("\n✅ Тест успешно пройден!")
+        print("\n✅ Тест №4 успешно пройден!")
         time.sleep(5)
 
     finally:
