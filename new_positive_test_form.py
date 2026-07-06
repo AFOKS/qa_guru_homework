@@ -18,7 +18,6 @@ def test01():
         # 3. Поиск элементов и заполнение полей
         # Находим поле Full Name по его ID и вводим текст
         full_name_field = driver.find_element(By.ID, "userName")
-        # web_elements = driver.find_elements(By.XPATH, "someXPath")
 
         full_name_field.send_keys("Андрей Ажнов")
 
