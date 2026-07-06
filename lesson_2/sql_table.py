@@ -110,7 +110,6 @@ class TableElement:
         return cells[column_index].text
 
 
-# 2. Пример использования (Скрипт теста)
 
 if __name__ == "__main__":
     # Инициализация драйвера
@@ -144,7 +143,7 @@ if __name__ == "__main__":
         ":):):):))))::;)",
         "<div>HTML injection</div>''', f"Ожидалось $100.00, но получено {specific_cell}"
 
-        print("\n✅ Тест №1 успешно пройден!")
+        print("\n✅ Тест №2 успешно пройден!")
         time.sleep(5)
 
     finally:

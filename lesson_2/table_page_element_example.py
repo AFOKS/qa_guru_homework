@@ -28,7 +28,6 @@ class TableElement:
         """Возвращает значение конкретной ячейки."""
         rows = self.element.find_elements(By.CSS_SELECTOR, "tbody tr")
         cells = rows[row_index].find_elements(By.TAG_NAME, "td")
-        # TODDO: 1) как переписать используя вызов get_row_data ?
         return cells[column_index].text
 
 
