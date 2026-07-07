@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 
-def test01():
+def test_for_all_fields():
     print("Рефакторинг - итерация 1!")
 
     # 1. Запуск браузера Chrome
