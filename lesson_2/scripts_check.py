@@ -1,66 +1,55 @@
 import time
+import pytest
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 
-
-# 1. Реализация Page Element для таблицы
-class TableElement:
-    def __init__(self, driver, locator):
-        self.driver = driver
-        self.locator = locator
-
-    @property
-    def element(self):
-        return self.driver.find_element(*self.locator)
-
-    def get_headers(self) -> list[str]:
-        """Возвращает список заголовков таблицы."""
-        header_elements = self.element.find_elements(By.CSS_SELECTOR, "thead th")
-        return [header.text for header in header_elements]
-
-    def get_row_data(self, row_index: int) -> list[str]:
-        """Возвращает данные конкретной строки по её индексу (начиная с 0)."""
-        rows = self.element.find_elements(By.CSS_SELECTOR, "tbody tr")
-        cells = rows[row_index].find_elements(By.TAG_NAME, "td")
-        return [cell.text for cell in cells]
-
-    def get_cell_value(self, row_index: int, column_index: int) -> str:
-        """Возвращает значение конкретной ячейки."""
-        rows = self.element.find_elements(By.CSS_SELECTOR, "tbody tr")
-        cells = rows[row_index].find_elements(By.TAG_NAME, "td")
-        return cells[column_index].text
-
-if __name__ == "__main__":
-    # Инициализация драйвера
+def test_fluent_only_two_fields():
     driver = webdriver.Chrome()
     driver.maximize_window()
-    driver.implicitly_wait(5)
+    # Инициализация браузера
 
     try:
-        # Открытие страницы
-        driver.get("https://the-internet.herokuapp.com/tables")
+        # 1. Открытие тестовой страницы
+        driver.get("https://qa-guru.github.io/one-page-form/text-box.html")
 
-        # Инициализация таблицы как Page Element через её локатор
-        table1_locator = (By.ID, "table1")
-        table = TableElement(driver, table1_locator)
-
-        # Сбор данных для демонстрации
-        headers = table.get_headers()
-        four_row = table.get_row_data(0)
-        specific_cell = table.get_cell_value(row_index=1, column_index=5)  # Строка 2, Колонка 5 (Action)
-
-        # Вывод результатов в консоль
-        print("Заголовки таблицы:", headers)
-        print("Четвертая строка данных:", four_row)
-        print(f"Значение в строке 2, колонке 'Actions': {specific_cell}")
-
-        # Простые проверки (Assertions)
-        assert "Last Name" in headers, "Заголовок 'Last Name' не найден"
-        assert "Conway" in four_row, "Фамилия 'Conway' должна быть в четвертой строке"
-        assert specific_cell == "edit delete", f"Ожидалось edit delete, но получено {specific_cell}"
-
-        print("\n✅ Тест №4 успешно пройден!")
         time.sleep(5)
 
+        # 2. Заполнение полей формы
+        driver.find_element(By.ID, "userName").send_keys("  A N ")
+        driver.find_element(By.ID, "userEmail").send_keys("makarov@searc.com")
+        driver.find_element(By.ID, "currentAddress").send_keys("  D R")
+        driver.find_element(By.ID, "permanentAddress").send_keys("  E Y ")
+
+        # Скролл до кнопки и клик
+        submit_button = driver.find_element(By.ID, "submit")
+        driver.execute_script("arguments[0].scrollIntoView();", submit_button)
+        submit_button.click()
+
+        # 3. Настройка Fluent Wait
+        # timeout: максимальное время ожидания (0 секунд)
+        # poll_frequency: интервал опроса страницы (0.5 секунд)
+        # ignored_exceptions: список игнорируемых исключений во время опроса
+        fluent_wait = WebDriverWait(
+            driver,
+            timeout=0,
+            poll_frequency=0.5,
+            ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
+        )
+
+        # 4. Ожидание появления блока с результатами (id="output")
+        output_block = fluent_wait.until(EC.visibility_of_element_located((By.ID, "output")))
+
+        time.sleep(5)
+
+        # 5. Проверка результата
+        print("Тест №4 успешно пройден! Блок с результатами появился.")
+
+        assert output_block.is_displayed()
+
     finally:
+        # Закрытие браузера
         driver.quit()
