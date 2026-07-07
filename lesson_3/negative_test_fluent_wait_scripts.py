@@ -51,7 +51,7 @@ def test_invalid_characters():
 
         assert output_block.is_enabled()
 
-        print("Введите верные значения")
+        print("Введите верные значения!!")
 
     finally:
         # Закрытие браузера
