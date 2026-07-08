@@ -253,8 +253,70 @@ def test_with_space():
         # Закрытие браузера
         driver.quit()
 
+# Тест №6. Все поля  содержат sql
+
+def test_sql_fluent():
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    # Инициализация браузера
+
+    try:
+        # 1. Открытие тестовой страницы
+        driver.get("https://qa-guru.github.io/one-page-form/text-box.html")
+
+        time.sleep(5)
+
+        # 2. Заполнение полей формы
+        driver.find_element(By.ID, "userName").send_keys('''<script>alert('xss')</script>",
+    "1' OR '1'='1",
+    ":):):):))))::;)",
+    "<div>HTML injection</div>''')
+        driver.find_element(By.ID, "userEmail").send_keys('''<script>alert('xss')</script>",
+    "1' OR '1'='1",
+    ":):):):))))::;)",
+    "<div>HTML injection</div>''')
+        driver.find_element(By.ID, "currentAddress").send_keys('''<script>alert('xss')</script>",
+    "1' OR '1'='1",
+    ":):):):))))::;)",
+    "<div>HTML injection</div>''')
+        driver.find_element(By.ID, "permanentAddress").send_keys('''<script>alert('xss')</script>",
+    "1' OR '1'='1",
+    ":):):):))))::;)",
+    "<div>HTML injection</div>''')
+
+        # Скролл до кнопки и клик
+        submit_button = driver.find_element(By.ID, "submit")
+        driver.execute_script("arguments[0].scrollIntoView();", submit_button)
+        submit_button.click()
+
+        # 3. Настройка Fluent Wait
+        # timeout: максимальное время ожидания (0 секунд)
+        # poll_frequency: интервал опроса страницы (0.5 секунд)
+        # ignored_exceptions: список игнорируемых исключений во время опроса
+        fluent_wait = WebDriverWait(
+            driver,
+            timeout=10,
+            poll_frequency=5,
+            ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
+        )
+
+        # 4. Ожидание появления блока с результатами (id="output")
+        output_block = fluent_wait.until(EC.visibility_of_element_located((By.ID, "output")))
+
+        time.sleep(5)
+
+        # 5. Проверка результата
+        print("Тест №6 успешно пройден! Блок с результатами появился.")
+
+        assert output_block.is_displayed()
+
+    finally:
+        # Закрытие браузера
+        driver.quit()
+
 test_fluent_wait()
 test_fluent_zero_wait()
 test_invalid_characters_except_email()
 test_fluent_only_two_fields()
 test_with_space()
+test_sql_fluent()
