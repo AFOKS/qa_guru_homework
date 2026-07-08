@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 
-def test_fluent_only_two_fields():
+def test_invalid_email():
     driver = webdriver.Chrome()
     driver.maximize_window()
     # Инициализация браузера
@@ -19,19 +19,10 @@ def test_fluent_only_two_fields():
         time.sleep(5)
 
         # 2. Заполнение полей формы
-        driver.find_element(By.ID, "userName").send_keys('''<script>alert('xss')</script>",
-    "1' OR '1'='1",
-    ":):):):))))::;)",
-    "<div>HTML injection</div>''')
-        driver.find_element(By.ID, "userEmail").send_keys("makarov@searc.com")
-        driver.find_element(By.ID, "currentAddress").send_keys('''<script>alert('xss')</script>",
-    "1' OR '1'='1",
-    ":):):):))))::;)",
-    "<div>HTML injection</div>''')
-        driver.find_element(By.ID, "permanentAddress").send_keys('''<script>alert('xss')</script>",
-    "1' OR '1'='1",
-    ":):):):))))::;)",
-    "<div>HTML injection</div>''')
+        driver.find_element(By.ID, "userName").send_keys("Viktor Messi")
+        driver.find_element(By.ID, "userEmail").send_keys("messigoat/@.worldcup.win")
+        driver.find_element(By.ID, "currentAddress").send_keys("Argentina")
+        driver.find_element(By.ID, "permanentAddress").send_keys("USA")
 
         # Скролл до кнопки и клик
         submit_button = driver.find_element(By.ID, "submit")
@@ -39,13 +30,13 @@ def test_fluent_only_two_fields():
         submit_button.click()
 
         # 3. Настройка Fluent Wait
-        # timeout: максимальное время ожидания (0 секунд)
-        # poll_frequency: интервал опроса страницы (0.5 секунд)
+        # timeout: максимальное время ожидания (10 секунд)
+        # poll_frequency: интервал опроса страницы (0.5 секунды)
         # ignored_exceptions: список игнорируемых исключений во время опроса
         fluent_wait = WebDriverWait(
             driver,
-            timeout=0,
-            poll_frequency=0.5,
+            timeout=10,
+            poll_frequency=10,
             ignored_exceptions=[NoSuchElementException, StaleElementReferenceException]
         )
 
@@ -55,9 +46,10 @@ def test_fluent_only_two_fields():
         time.sleep(5)
 
         # 5. Проверка результата
-        print("Тест №4 успешно пройден! Блок с результатами появился.")
 
-        assert output_block.is_displayed()
+        assert output_block.is_enabled()
+
+        print("Введите верные значения!!")
 
     finally:
         # Закрытие браузера
