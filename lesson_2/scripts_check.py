@@ -19,10 +19,19 @@ def test_fluent_only_two_fields():
         time.sleep(5)
 
         # 2. Заполнение полей формы
-        driver.find_element(By.ID, "userName").send_keys("  A N ")
+        driver.find_element(By.ID, "userName").send_keys('''<script>alert('xss')</script>",
+    "1' OR '1'='1",
+    ":):):):))))::;)",
+    "<div>HTML injection</div>''')
         driver.find_element(By.ID, "userEmail").send_keys("makarov@searc.com")
-        driver.find_element(By.ID, "currentAddress").send_keys("  D R")
-        driver.find_element(By.ID, "permanentAddress").send_keys("  E Y ")
+        driver.find_element(By.ID, "currentAddress").send_keys('''<script>alert('xss')</script>",
+    "1' OR '1'='1",
+    ":):):):))))::;)",
+    "<div>HTML injection</div>''')
+        driver.find_element(By.ID, "permanentAddress").send_keys('''<script>alert('xss')</script>",
+    "1' OR '1'='1",
+    ":):):):))))::;)",
+    "<div>HTML injection</div>''')
 
         # Скролл до кнопки и клик
         submit_button = driver.find_element(By.ID, "submit")
