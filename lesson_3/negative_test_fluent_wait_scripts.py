@@ -48,7 +48,6 @@ def test_invalid_characters():
 
         # 5. Проверка результата
 
-
         assert output_block.is_enabled()
 
         print("Введите верные значения!!")
@@ -56,6 +55,7 @@ def test_invalid_characters():
     finally:
         # Закрытие браузера
         driver.quit()
+
 
 def test_invalid_email():
     driver = webdriver.Chrome()

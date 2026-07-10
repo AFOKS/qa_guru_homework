@@ -29,11 +29,10 @@ def test_for_all_fields():
         current_address_field = driver.find_element(By.ID, "currentAddress")
         current_address_field.send_keys("Город Москва; улица Ленина, дом 15, квартира 20")
 
-        #5. Находим поле Permanent Address и заполняем его
+        # 5. Находим поле Permanent Address и заполняем его
 
         permanent_address_field = driver.find_element(By.ID, "permanentAddress")
         permanent_address_field.send_keys("Город Москва; улица Пушкина, дом 70, квартира 89")
-
 
         # Находим кнопку Submit по ее ID и кликаем
 

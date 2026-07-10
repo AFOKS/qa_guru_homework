@@ -31,7 +31,6 @@ try:
     submit_button.click()
     # driver.find_element(*SUBMIT_BUTTON).click()
 
-
     ##EC.
 
     # 5. Проверка того что входные данные не подходят (проверяем наличие элемента на новой странице)

@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
         # Сбор данных для демонстрации Таблица №1
         headers = table.get_headers()
-        first_row = table.get_row_data(0) # Первоя строка
+        first_row = table.get_row_data(0)  # Первоя строка
         specific_cell = table.get_cell_value(row_index=2, column_index=3)  # Строка 3, Колонка 4 (Due)
         # Сбор данных для демонстрации Таблица №2
         headers_2 = table_02.get_headers()
@@ -87,7 +87,6 @@ if __name__ == "__main__":
     finally:
         driver.quit()
 
-
 # Тест №2 для двух таблиц
 
 if __name__ == "__main__":
@@ -108,7 +107,7 @@ if __name__ == "__main__":
 
         # Сбор данных для демонстрации Таблица №1
         headers = table.get_headers()
-        first_row = table.get_row_data(3) # 4 строка в таблице №1
+        first_row = table.get_row_data(3)  # 4 строка в таблице №1
         specific_cell = table.get_cell_value(row_index=0, column_index=4)  # Строка 1, Колонка 5 (Web Site)
         # Сбор данных для демонстрации Таблица №2
         headers_2 = table_02.get_headers()
@@ -143,7 +142,6 @@ if __name__ == "__main__":
     finally:
         driver.quit()
 
-
 # Тест №3 для двух таблиц
 
 if __name__ == "__main__":
@@ -164,7 +162,7 @@ if __name__ == "__main__":
 
         # Сбор данных для демонстрации Таблица №1
         headers = table.get_headers()
-        first_row = table.get_row_data(1) # 2 строка в таблице №1
+        first_row = table.get_row_data(1)  # 2 строка в таблице №1
         specific_cell = table.get_cell_value(row_index=2, column_index=3)  # Строка 3, Колонка 3 (Due)
         # Сбор данных для демонстрации Таблица №2
         headers_2 = table_02.get_headers()
@@ -198,7 +196,6 @@ if __name__ == "__main__":
 
     finally:
         driver.quit()
-
 
 # Тест №4 для двух таблиц
 
@@ -254,7 +251,6 @@ if __name__ == "__main__":
 
     finally:
         driver.quit()
-
 
 # Тест №5 для двух таблиц
 

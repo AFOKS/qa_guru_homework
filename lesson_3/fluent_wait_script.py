@@ -7,7 +7,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 
 
-
 # Тест №1. Корретное заполнение всех полей
 
 def test_fluent_wait():
@@ -106,6 +105,7 @@ def test_fluent_zero_wait():
         # Закрытие браузера
         driver.quit()
 
+
 # Тест 3. # Все поля принимают специальные символы кроме Email
 
 def test_invalid_characters_except_email():
@@ -154,6 +154,7 @@ def test_invalid_characters_except_email():
     finally:
         # Закрытие браузера
         driver.quit()
+
 
 # Тест 4. Заполнены только два поля: Имя и Email
 
@@ -204,6 +205,7 @@ def test_fluent_only_two_fields():
         # Закрытие браузера
         driver.quit()
 
+
 # Тест №5.Везде, кроме поля Email стоят пробелы перед  и после символов
 
 def test_with_space():
@@ -252,6 +254,7 @@ def test_with_space():
     finally:
         # Закрытие браузера
         driver.quit()
+
 
 # Тест №6. Все поля  содержат sql
 
@@ -313,6 +316,7 @@ def test_sql_fluent():
     finally:
         # Закрытие браузера
         driver.quit()
+
 
 test_fluent_wait()
 test_fluent_zero_wait()

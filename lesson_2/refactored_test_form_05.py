@@ -111,4 +111,3 @@ driver = webdriver.Chrome()
 test_suite = TestSuite(url, driver)
 test_suite.test_case01()
 test_suite.test_case02()
-

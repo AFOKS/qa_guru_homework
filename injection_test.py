@@ -17,9 +17,9 @@ try:
     # web_elements = driver.find_elements(By.XPATH, "someXPath")
 
     full_name_field.send_keys("<script>alert('xss')</script>",
-    "1' OR '1'='1",
-    ":):):):))))::;)",
-    "<div>HTML injection</div>")
+                              "1' OR '1'='1",
+                              ":):):):))))::;)",
+                              "<div>HTML injection</div>")
 
     # Находим поле Email по его ID и вводим текст
     email_field = driver.find_element(By.ID, "userEmail")

@@ -3,7 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 
-
 # 1. Реализация Page Element для таблицы
 class TableElement:
     def __init__(self, driver, locator):
@@ -50,7 +49,7 @@ if __name__ == "__main__":
 
         # Сбор данных для демонстрации
         headers = table.get_headers()
-        second_row = table.get_row_data(1) # строка 2
+        second_row = table.get_row_data(1)  # строка 2
         specific_cell = table.get_cell_value(row_index=3, column_index=1)  # Строка 4, Колонка 2 (First Name)
 
         # Вывод результатов в консоль
@@ -87,7 +86,7 @@ if __name__ == "__main__":
 
         # Сбор данных для демонстрации
         headers = table.get_headers()
-        third_row = table.get_row_data(2) # строка 3
+        third_row = table.get_row_data(2)  # строка 3
         specific_cell = table.get_cell_value(row_index=0, column_index=4)  # Строка 1, Колонка 4 (Web Site)
 
         # Вывод результатов в консоль
@@ -105,7 +104,6 @@ if __name__ == "__main__":
 
     finally:
         driver.quit()
-
 
 # Таблица 2. Тест 3
 
@@ -125,7 +123,7 @@ if __name__ == "__main__":
 
         # Сбор данных для демонстрации
         headers = table.get_headers()
-        four_row = table.get_row_data(3) # строка 4
+        four_row = table.get_row_data(3)  # строка 4
         specific_cell = table.get_cell_value(row_index=2, column_index=3)  # Строка 3, Колонка 4 (Due)
 
         # Вывод результатов в консоль
@@ -143,7 +141,6 @@ if __name__ == "__main__":
 
     finally:
         driver.quit()
-
 
 # Таблица 2. Тест 4
 
@@ -163,7 +160,7 @@ if __name__ == "__main__":
 
         # Сбор данных для демонстрации
         headers = table.get_headers()
-        first_row = table.get_row_data(0) # строка 1
+        first_row = table.get_row_data(0)  # строка 1
         specific_cell = table.get_cell_value(row_index=1, column_index=2)  # Строка 2, Колонка 3 (Email)
 
         # Вывод результатов в консоль
@@ -200,7 +197,7 @@ if __name__ == "__main__":
 
         # Сбор данных для демонстрации
         headers = table.get_headers()
-        third_row = table.get_row_data(3) # строка 4
+        third_row = table.get_row_data(3)  # строка 4
         specific_cell = table.get_cell_value(row_index=2, column_index=4)  # Строка 3, Колонка 4 (Web site)
 
         # Вывод результатов в консоль

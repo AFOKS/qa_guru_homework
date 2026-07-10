@@ -74,7 +74,6 @@ if __name__ == "__main__":
     finally:
         driver.quit()
 
-
 # 2.1 Тест с sql. заменяю ответ скриптом в переменной 'specific_sell'
 
 import time
@@ -108,7 +107,6 @@ class TableElement:
         rows = self.element.find_elements(By.CSS_SELECTOR, "tbody tr")
         cells = rows[row_index].find_elements(By.TAG_NAME, "td")
         return cells[column_index].text
-
 
 
 if __name__ == "__main__":
