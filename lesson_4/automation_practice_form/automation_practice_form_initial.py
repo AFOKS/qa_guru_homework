@@ -201,6 +201,7 @@ class PracticeForm:
                 f"Значение '{value}' для поля '{key}' не найдено."
 
 
+
 practice_form = PracticeForm()
 
 try:
