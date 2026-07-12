@@ -156,6 +156,50 @@ class PracticeForm:
             os.remove(self.test_file)
         self.driver.quit()
 
+    def test_fill_entire_form_with_another_data(self):
+        practice_form_title = self.driver.find_element(*self.PRACTICE_FORM_TITLE)
+        assert practice_form_title.text == "Practice Form", "Заголовок страницы не совпадает"
+
+        self.close_commercial_banner()
+        self.fill_first_name("Ivan")
+        self.fill_last_name("Petrov")
+        self.fill_email("ivan.petrov@example.com")
+        self.select_gender("Male")
+        self.fill_user_number("9876543210")
+        self.select_birth_day("1995", "7", "15")
+        self.fill_subject("Physics", "Chemistry")
+        self.select_hobbies("Reading")
+        self.upload_file(self.test_file)
+        self.fill_current_address("г. Москва, ул. Тверская, д. 10")
+        self.select_state("NCR")
+        self.select_city("Delhi")
+        self.click_submit_button()
+
+        result_form = self.wait.until(
+            ec.visibility_of_element_located(self.RESULT_FORM)
+        )
+
+        assert result_form.is_displayed(), "Форма с результатами не открылась"
+
+        result_text = result_form.text
+
+        expected_data = {
+            "Student Name": "Ivan Petrov",
+            "Student Email": "ivan.petrov@example.com",
+            "Gender": "Male",
+            "Mobile": "9876543210",
+            "Date of Birth": "1995",
+            "Subjects": "Physics, Chemistry",
+            "Hobbies": "Reading",
+            "Picture": "test_file.jpg",
+            "Address": "г. Москва, ул. Тверская, д. 10",
+            "State and City": "NCR Delhi"
+        }
+
+        for key, value in expected_data.items():
+            assert key in result_text and value in result_text, \
+                f"Значение '{value}' для поля '{key}' не найдено."
+
 
 practice_form = PracticeForm()
 
@@ -164,3 +208,16 @@ try:
     practice_form.test_fill_entire_form()
 finally:
     practice_form.tear_down()
+
+practice_form = PracticeForm()
+
+try:
+    practice_form.setup()
+    practice_form.test_fill_entire_form_with_another_data()
+finally:
+    practice_form.tear_down()
+
+
+
+
+
