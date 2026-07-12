@@ -1,6 +1,4 @@
 import os
-import time
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
@@ -153,46 +151,6 @@ class PracticeForm:
         self.click_submit_button()
         self.final_result_assertion()
 
-    def test_with_empty_fields(self):
-        practice_form_title = self.driver.find_element(*self.PRACTICE_FORM_TITLE)
-        assert practice_form_title.text == "Practice Form", "Заголовок страницы не совпадает"
-
-        self.close_commercial_banner()
-        self.fill_first_name("")
-        self.fill_last_name("")
-        self.fill_email("bugaev@example.com")
-        self.select_gender("")
-        self.fill_user_number("")
-        self.select_birth_day("")
-        self.fill_subject("")
-        self.select_hobbies("")
-        self.upload_file(self.test_file)
-        self.fill_current_address("")
-        self.select_state("")
-        self.select_city("")
-        self.click_submit_button()
-        self.final_result_assertion()
-
-    def test_with_empty_fields(self):
-        practice_form_title = self.driver.find_element(*self.PRACTICE_FORM_TITLE)
-        assert practice_form_title.text == "Practice Form", "Заголовок страницы не совпадает"
-
-        self.close_commercial_banner()
-        self.fill_first_name("")
-        self.fill_last_name("")
-        self.fill_email("bugaev@example.com")
-        self.select_gender("")
-        self.fill_user_number("")
-        self.select_birth_day("")
-        self.fill_subject("")
-        self.select_hobbies("")
-        self.upload_file(self.test_file)
-        self.fill_current_address("")
-        self.select_state("")
-        self.select_city("")
-        self.click_submit_button()
-        self.final_result_assertion()
-
     def tear_down(self):
         if os.path.exists(self.test_file):
             os.remove(self.test_file)
@@ -203,13 +161,6 @@ practice_form = PracticeForm()
 
 try:
     practice_form.setup()
-    time.sleep(5)
     practice_form.test_fill_entire_form()
-    time.sleep(5)
-    practice_form.tear_down()
 finally:
     practice_form.tear_down()
-    print("Тест №1. Успешно пройден!!!")
-
-
-
