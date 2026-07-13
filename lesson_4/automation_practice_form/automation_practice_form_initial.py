@@ -200,6 +200,8 @@ class PracticeForm:
             assert key in result_text and value in result_text, \
                 f"Значение '{value}' для поля '{key}' не найдено."
 
+
+
     def test_fill_entire_form_with_third_data(self):
         practice_form_title = self.driver.find_element(*self.PRACTICE_FORM_TITLE)
         assert practice_form_title.text == "Practice Form", "Заголовок страницы не совпадает"
@@ -244,13 +246,60 @@ class PracticeForm:
             assert key in result_text and value in result_text, \
                 f"Значение '{value}' для поля '{key}' не найдено."
 
+    def test_with_one_value_in_the_floor(self):
+        practice_form_title = self.driver.find_element(*self.PRACTICE_FORM_TITLE)
+        assert practice_form_title.text == "Practice Form", "Заголовок страницы не совпадает"
+
+        self.close_commercial_banner()
+        self.fill_first_name("A")
+        self.fill_last_name("S")
+        self.fill_email("a@e.ru")
+        self.select_gender("Other")
+        self.fill_user_number("1111111111")
+        self.select_birth_day("2001", "6", "11")
+        self.fill_subject("Arts", "History")
+        self.select_hobbies("Sports", "Music")
+        self.upload_file(self.test_file)
+        self.fill_current_address("К")
+        self.select_state("NCR")
+        self.select_city("Gurgaon")
+        self.click_submit_button()
+
+        result_form = self.wait.until(
+            ec.visibility_of_element_located(self.RESULT_FORM)
+        )
+
+        assert result_form.is_displayed(), "Форма с результатами не открылась"
+
+        result_text = result_form.text
+
+        expected_data = {
+            "Student Name": "A S",
+            "Student Email": "a@e.ru",
+            "Gender": "Other",
+            "Mobile": "1111111111",
+            "Date of Birth": "2001",
+            "Subjects": "Arts, History",
+            "Hobbies": "Sports, Music",
+            "Picture": "test_file.jpg",
+            "Address": "NCR",
+            "State and City": "Gurgaon"
+        }
+
+        for key, value in expected_data.items():
+            assert key in result_text and value in result_text, \
+                f"Значение '{value}' для поля '{key}' не найдено."
+
+
 practice_form = PracticeForm()
 
 try:
     practice_form.setup()
     practice_form.test_fill_entire_form()
+
 finally:
     practice_form.tear_down()
+    print("\n✅ Тест №1 успешно пройден!!!")
 
 practice_form = PracticeForm()
 
@@ -259,6 +308,7 @@ try:
     practice_form.test_fill_entire_form_with_another_data()
 finally:
     practice_form.tear_down()
+    print("\n✅ Тест №2 успешно пройден!!!")
 
 
 practice_form = PracticeForm()
@@ -268,7 +318,18 @@ try:
     practice_form.test_fill_entire_form_with_third_data()
 finally:
     practice_form.tear_down()
+    print("\n✅ Тест №3 успешно пройден!!!")
 
 
+practice_form = PracticeForm()
+
+try:
+    practice_form.setup()
+    practice_form.test_with_one_value_in_the_floor()
+finally:
+    practice_form.tear_down()
+    print("\n✅ Тест №4 успешно пройден!!!")
+
+print("\n✅ Все тесты успешно пройдены!!!")
 
 
