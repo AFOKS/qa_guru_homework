@@ -51,10 +51,11 @@ class TextBoxPage(PageFactory):
         
         return {"name": name, "email": email, "cur_addr": cur_addr, "perm_addr": perm_addr}
 
+
+    # Исправил функцию. Сделал проверку через встроенную валидацию браузера.
     def is_email_error_present(self):
-        # Проверяем наличие класса ошибки у поля Email
-        field_class = self.email_input.get_attribute("class")
-        # TypeError: argument of type 'NoneType' is not a container or iterable
-        # как нужно обновить - исправить проверку?
-        return "field-error" in field_class or "error" in field_class or False
+        return not self.driver.execute_script(
+            "return arguments[0].checkValidity();",
+            self.email_input
+        )
 
