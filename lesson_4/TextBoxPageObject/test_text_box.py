@@ -198,3 +198,5 @@ def test_empty_form_submission(driver):
     if output is not None:
         assert output["name"] == ""
         assert output["email"] == ""
+
+# Упало 15 тестов
