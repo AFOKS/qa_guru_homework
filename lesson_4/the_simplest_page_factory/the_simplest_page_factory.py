@@ -1,49 +1,40 @@
 import time
 from selenium import webdriver
 from seleniumpagefactory.Pagefactory import PageFactory
-# pip install selenium-page-factory selenium
 
-# Это лишь абстрактный пример, переписать хотя бы один тест с хотя бы одним PageObject на PageFactory
-# Постараться использовать в своем проекте расширенные возможности PageFactory (примеры описаны в методе login)
-
+# Создал тест но авторизацию
 # 1. Описываем класс страницы, наследуясь от PageFactory
 class LoginPage(PageFactory):
     def __init__(self, driver):
         self.driver = driver
         # Локаторы задаются в виде словаря. Ключ станет именем переменной-элемента.
         self.locators = {
-            "username_input": ('ID', 'username'),
-            "password_input": ('XPATH', '//input[@id="password"]'),
-            "submit_button": ('CSS', 'button[type="submit"]'),
-            "dropdown_role": ('NAME', 'role'),
-            "hover_menu": ('ID', 'menu-item')
+            "username_input": ('name', 'email'),
+            "password_input": ('name', 'password'),
+            "login_button": ("CSS", "button[data-qa='login-button']"),
         }
 
     # Метод, использующий возможности Page Factory
-    def login(self, user, password):
+    def login(self, email, password):
         # Элементы инициализируются «на лету» и имеют расширенные методы
-        self.username_input.set_text(user)  # Ввод текста + очистка
+        self.username_input.set_text(email)  # Ввод текста + очистка
         self.password_input.set_text(password)
-        
-        # Пример работы с выпадающим списком (Select)
-        self.dropdown_role.select_element_by_text("Администратор")
-        
-        # Пример действия hover (наведение) с последующим кликом
-        self.hover_menu.hover()
-        
-        # set_text / click_button включают встроенное ожидание появления элемента
-        self.submit_button.click_button() 
+
+    def click_login(self):
+        self.login_button.click()
 
 # 2. Основной скрипт теста
 if __name__ == "__main__":
     driver = webdriver.Chrome()
-    driver.get("https://example.com")
+    driver.get("https://www.automationexercise.com/login")
     
     # Инициализация страницы
     login_page = LoginPage(driver)
     
     # Вызов логики
-    login_page.login("admin_user", "SuperSecretPassword123")
+    login_page.login("zxc@test.com", "123456")
+    login_page.click_login()
     
     time.sleep(5)
     driver.quit()
+    print("Тест на аторизацию успешно пройден!!")
