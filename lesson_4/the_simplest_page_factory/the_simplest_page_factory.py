@@ -12,6 +12,9 @@ class LoginPage(PageFactory):
             "username_input": ('name', 'email'),
             "password_input": ('name', 'password'),
             "login_button": ("CSS", "button[data-qa='login-button']"),
+            "signup_name": ('name', 'name'),
+            "signup_email": ('name', 'email'),
+            "signup_button": ("CSS", "button[data-qa='signup-button']")
         }
 
     # Метод, использующий возможности Page Factory
@@ -20,9 +23,12 @@ class LoginPage(PageFactory):
         self.username_input.set_text(email)  # Ввод текста + очистка
         self.password_input.set_text(password)
 
+
     def click_login(self):
         self.login_button.click()
-
+    def signup(self, name, email,):
+        self.signup_name.set_text(name)
+        self.signup_email.set_text(email)
 # 2. Основной скрипт теста
 if __name__ == "__main__":
     driver = webdriver.Chrome()
@@ -38,3 +44,18 @@ if __name__ == "__main__":
     time.sleep(5)
     driver.quit()
     print("Тест на аторизацию успешно пройден!!")
+
+if __name__ == "__main__":
+    driver = webdriver.Chrome()
+    driver.get("https://www.automationexercise.com/login")
+
+    # Инициализация страницы
+    signup_page = SignupPage(driver)
+
+    # Вызов логики
+    signup_page.login("zxcc@test.com", "1234567")
+    signup_page.click_login()
+
+    time.sleep(5)
+    driver.quit()
+    print("Тест на регситрацию успешно пройден!!")
