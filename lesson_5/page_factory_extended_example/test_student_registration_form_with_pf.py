@@ -3,8 +3,8 @@ import time
 import pytest
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as ec
-#from selenium.webdriver.chrome.service import Service
-#from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from seleniumpagefactory.Pagefactory import PageFactory
 
@@ -45,10 +45,10 @@ from seleniumpagefactory.Pagefactory import PageFactory
 @pytest.fixture(scope="function")
 def driver():
     """Инициализация WebDriver с безопасными флагами для CI/CD и демонстраций."""
-    #chrome_options = Options()
-    #chrome_options.add_argument("--start-maximized")
-    #chrome_options.add_argument("--disable-extensions")
-    #chrome_options.add_argument("--headless=new")  # Для фонового запуска студентов
+    chrome_options = Options()
+    chrome_options.add_argument("--start-maximized")
+    chrome_options.add_argument("--disable-extensions")
+    chrome_options.add_argument("--headless=new")  # Для фонового запуска студентов
     
     ## Решение проблем с памятью в Docker/стесненных средах обучения
     #chrome_options.add_argument("--no-sandbox")
