@@ -23,6 +23,8 @@ def auth_headers(request):
     ["User", "Admin", "Guest"],
     indirect=True
 )
+
+# добавил тест для вывода заголовков
 def test_api_authorization(auth_headers):
     print(f"-> Заголовки запроса: {auth_headers}")
 
