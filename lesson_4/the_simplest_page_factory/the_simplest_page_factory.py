@@ -1,4 +1,5 @@
 import time
+
 from selenium import webdriver
 from seleniumpagefactory.Pagefactory import PageFactory
 
@@ -94,11 +95,9 @@ class TestSuite:
 
 
 if __name__ == "__main__":
-
     tests = TestSuite()
 
     tests.test_login_success()
     tests.test_login_wrong_password()
     tests.test_login_empty_fields()
     tests.test_signup()
-

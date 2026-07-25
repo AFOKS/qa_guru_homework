@@ -1,4 +1,5 @@
 import time
+
 from selenium import webdriver
 # from selenium.webdriver.window_types import WindowTypes # Selenium 3
 from selenium.webdriver.common.window import WindowTypes  # Selenium 4

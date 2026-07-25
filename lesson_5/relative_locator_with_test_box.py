@@ -1,7 +1,7 @@
+import time
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.relative_locator import locate_with
-import time
 
 driver = webdriver.Chrome()
 driver.get("https://qa-guru.github.io/one-page-form/text-box.html")

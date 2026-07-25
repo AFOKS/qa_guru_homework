@@ -1,4 +1,5 @@
 import time
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from seleniumpagefactory.Pagefactory import PageFactory
@@ -26,6 +27,7 @@ class TablesPage(PageFactory):
     def get_cell_value(self, table, row_index, column_index):
         return self.get_row_data(table, row_index)[column_index]
 
+
 class TestTables:
 
     def setup(self):
@@ -40,7 +42,6 @@ class TestTables:
         self.driver.quit()
 
     def test_table1(self):
-
         self.setup()
 
         headers = self.page.get_headers(self.page.table1)
@@ -56,7 +57,6 @@ class TestTables:
         self.teardown()
 
     def test_table2(self):
-
         self.setup()
 
         headers = self.page.get_headers(self.page.table2)
@@ -72,7 +72,6 @@ class TestTables:
         self.teardown()
 
     def test_table3(self):
-
         self.setup()
 
         row = self.page.get_row_data(self.page.table1, 3)
@@ -86,7 +85,6 @@ class TestTables:
         self.teardown()
 
     def test_table4(self):
-
         self.setup()
 
         email = self.page.get_cell_value(self.page.table1, 2, 2)
@@ -98,7 +96,6 @@ class TestTables:
         self.teardown()
 
     def test_table5(self):
-
         self.setup()
 
         firstname = self.page.get_cell_value(self.page.table1, 2, 1)
@@ -109,8 +106,8 @@ class TestTables:
 
         self.teardown()
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     tests = TestTables()
 
     tests.test_table1()

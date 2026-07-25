@@ -1,6 +1,9 @@
-import pytest
 import time
+
+import pytest
+
 from text_box_page_pf import TextBoxPage
+
 
 # Добавил исправленые тесты из директории TexBoxPageObject, файла text_box_page.py
 # --- 1. Позитивные сценарии (Валидные данные) ---> Улучшил тесты так, чтобы покрывали больше кейсов
@@ -26,7 +29,6 @@ from text_box_page_pf import TextBoxPage
     ]
 )
 def test_positive_form_submission(driver, name, email, cur_addr, perm_addr):
-
     page = TextBoxPage(driver)
     page.open()
     page.fill_form(name, email, cur_addr, perm_addr)
@@ -83,7 +85,6 @@ def test_positive_form_submission(driver, name, email, cur_addr, perm_addr):
         "spaces_in_email",
     ]
 )
-
 def test_partial_form_submission(driver, name, email, cur_addr, perm_addr):
     page = TextBoxPage(driver)
     page.open()
@@ -91,30 +92,30 @@ def test_partial_form_submission(driver, name, email, cur_addr, perm_addr):
     page.submit()
     output = page.get_output_data()
 
-    time.sleep(3) # tmp solution
+    time.sleep(3)  # tmp solution
 
     assert output is not None, "Форма должна отправляться при частичном заполнении"
+
 
 # --- 3. Негативные сценарии (Невалидный Email) ---> добавил разные сценарии
 @pytest.mark.parametrize(
     "invalid_email",
     [
-        "plainaddress",          # нет @
-        "@no-local-part.com",    # нет локальной части
-        "john@",                 # нет домена
-        "john@example",          # нет ".com"
-        "john.doe@com",          # нет точки перед "com"
-        "john@missing-dot",      # нет точки
-        "john@@example.com",     # две @
-        "john@example..com",     # две точки
-        ".john@example.com",     # начинается с точки
-        "john.@example.com",     # заканчивается точкой
-        "john..doe@example.com", # две точки
-        "john example@test.com", # пробел
-        "",                      # пустое значение
+        "plainaddress",  # нет @
+        "@no-local-part.com",  # нет локальной части
+        "john@",  # нет домена
+        "john@example",  # нет ".com"
+        "john.doe@com",  # нет точки перед "com"
+        "john@missing-dot",  # нет точки
+        "john@@example.com",  # две @
+        "john@example..com",  # две точки
+        ".john@example.com",  # начинается с точки
+        "john.@example.com",  # заканчивается точкой
+        "john..doe@example.com",  # две точки
+        "john example@test.com",  # пробел
+        "",  # пустое значение
     ],
 )
-
 def test_invalid_email_validation(driver, invalid_email):
     page = TextBoxPage(driver)
     page.open()
@@ -128,12 +129,13 @@ def test_invalid_email_validation(driver, invalid_email):
 
     assert output is None or page.is_email_error_present(), f"Email '{invalid_email}' не должен быть принят системой"
 
+
 # --- 4. Избавился от цикла и добавил разных сценариев.
 @pytest.mark.parametrize(
     "field_data",
     [
         {"name": "A" * 500},
-        {"email": "a" * 250 + "@test.com"}, # тесты с данными в поле email
+        {"email": "a" * 250 + "@test.com"},  # тесты с данными в поле email
         {"cur_addr": "A" * 1000},
         {"perm_addr": "A" * 1000},
         {"name": "A" * 256},
@@ -172,7 +174,7 @@ def test_long_input_fields(driver, field_data):
         # Эмодзи
         "😀😎🚀",
         "👨‍👩‍👧‍👦",
-    ],)
+    ], )
 def test_security_and_special_inputs(driver, security_payload):
     page = TextBoxPage(driver).open()
     # Заполняем все поля потенциально опасным контентом
@@ -180,7 +182,7 @@ def test_security_and_special_inputs(driver, security_payload):
     page.submit()
     output = page.get_output_data()
 
-    time.sleep(3) # tmp solution
+    time.sleep(3)  # tmp solution
 
     assert output is not None, "Форма упала при вводе спецсимволов/инъекций"
     # Текст должен отобразиться строго как строка, а не выполниться кодом
@@ -193,7 +195,7 @@ def test_empty_form_submission(driver):
     page.submit()
     output = page.get_output_data()
 
-    time.sleep(3) # tmp solution
+    time.sleep(3)  # tmp solution
 
     if output is not None:
         assert output["name"] == ""

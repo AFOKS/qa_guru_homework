@@ -1,5 +1,3 @@
-import pytest
-import time
 def test_empty_form_submission(driver):
     page = TextBoxPage(driver).open()
 

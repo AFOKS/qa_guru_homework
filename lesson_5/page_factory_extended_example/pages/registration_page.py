@@ -5,7 +5,6 @@ from pages.base_page import BasePage
 
 
 class RegistrationPage(BasePage):
-
     URL = "https://qa-guru.github.io/one-page-form/automation-practice-form.html"
 
     # -------------------- Locators --------------------
@@ -280,4 +279,3 @@ class RegistrationPage(BasePage):
     def current_url(self):
 
         return self.driver.current_url
-

@@ -20,7 +20,6 @@ class TestRegistration:
     # -------------------------------------------------------------
 
     def test_fill_personal_info(self, driver):
-
         page = RegistrationPage(driver)
 
         page.open()
@@ -41,7 +40,6 @@ class TestRegistration:
     # -------------------------------------------------------------
 
     def test_fill_subjects(self, driver):
-
         page = RegistrationPage(driver)
 
         page.open()
@@ -72,7 +70,6 @@ class TestRegistration:
         ]
     )
     def test_gender_selection(self, driver, gender):
-
         page = RegistrationPage(driver)
 
         page.open()

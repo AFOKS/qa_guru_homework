@@ -1,10 +1,11 @@
 import os
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.select import Select
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class PracticeForm:
@@ -200,8 +201,6 @@ class PracticeForm:
             assert key in result_text and value in result_text, \
                 f"Значение '{value}' для поля '{key}' не найдено."
 
-
-
     def test_fill_entire_form_with_third_data(self):
         practice_form_title = self.driver.find_element(*self.PRACTICE_FORM_TITLE)
         assert practice_form_title.text == "Practice Form", "Заголовок страницы не совпадает"
@@ -310,7 +309,6 @@ finally:
     practice_form.tear_down()
     print("\n✅ Тест №2 успешно пройден!!!")
 
-
 practice_form = PracticeForm()
 
 try:
@@ -319,7 +317,6 @@ try:
 finally:
     practice_form.tear_down()
     print("\n✅ Тест №3 успешно пройден!!!")
-
 
 practice_form = PracticeForm()
 
@@ -331,5 +328,3 @@ finally:
     print("\n✅ Тест №4 успешно пройден!!!")
 
 print("\n✅ Все тесты успешно пройдены!!!")
-
-

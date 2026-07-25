@@ -1,12 +1,14 @@
 from typing import Tuple
+
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import InvalidSelectorException
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.select import Select
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.ui import WebDriverWait
+
 
 class AutomationPracticeFormPO:
     def __init__(self, url):
@@ -57,7 +59,8 @@ class AutomationPracticeFormPO:
         user_number_field.send_keys(user_number)
 
     def _select_gender(self, gender):
-        gender_radio_button = self.driver.find_element(By.XPATH, f"//div[@id='genterWrapper']//input[@value='{gender}']")
+        gender_radio_button = self.driver.find_element(By.XPATH,
+                                                       f"//div[@id='genterWrapper']//input[@value='{gender}']")
         gender_radio_button.click()
 
     #  Move code to Calendar Page Element
@@ -80,13 +83,13 @@ class AutomationPracticeFormPO:
     def _select_hobbies(self, *hobbies):
         try:
             for hobby in hobbies[0]:
-                hobby_check_box = self.driver.find_element(By.XPATH, f"//div[@id='hobbiesWrapper']//input[@value='{hobby}']")
+                hobby_check_box = self.driver.find_element(By.XPATH,
+                                                           f"//div[@id='hobbiesWrapper']//input[@value='{hobby}']")
                 hobby_check_box.click()
         except NoSuchElementException as ex:
             print(ex)
         except InvalidSelectorException as ex:
             print(ex)
-
 
     def _fill_current_address(self, current_address):
         current_address_field = self.driver.find_element(*self.CURRENT_ADDRESS_FIELD)
@@ -94,7 +97,8 @@ class AutomationPracticeFormPO:
 
     def _select_state(self, state):
         self.driver.find_element(*self.STATE_INPUT).click()
-        state_dropdown = self.wait.until(ec.element_to_be_clickable((By.XPATH, f"//div[@class='state-city-option'][text()='{state}']")))
+        state_dropdown = self.wait.until(
+            ec.element_to_be_clickable((By.XPATH, f"//div[@class='state-city-option'][text()='{state}']")))
         state_dropdown.click()
 
     def _select_city(self, city):
@@ -108,7 +112,8 @@ class AutomationPracticeFormPO:
         self.driver.execute_script("arguments[0].scrollIntoView();", submit_button)
         submit_button.click()
 
-    def fill_in_form(self, file_name=None, first_name=None, last_name=None, email=None, gender=None, user_number=None, birth_day=None, subjects=None, hobbies=None, current_address=None, state=None, city=None):
+    def fill_in_form(self, file_name=None, first_name=None, last_name=None, email=None, gender=None, user_number=None,
+                     birth_day=None, subjects=None, hobbies=None, current_address=None, state=None, city=None):
         practice_form_title = self.driver.find_element(*self.PRACTICE_FORM_TITLE)
         assert practice_form_title.text == "Practice Form", "Заголовок страницы не совпадает"
 
@@ -128,7 +133,8 @@ class AutomationPracticeFormPO:
         self._click_submit_button()
 
     #  со временем вынести в тесты или создать несколько разных методов assert под нужды разных тестов
-    def assert_form(self, file_name=None, first_name=None, last_name=None, email=None, gender=None, user_number=None, birth_day=None, subjects=None, hobbies=None, current_address=None, state=None, city=None):
+    def assert_form(self, file_name=None, first_name=None, last_name=None, email=None, gender=None, user_number=None,
+                    birth_day=None, subjects=None, hobbies=None, current_address=None, state=None, city=None):
         result_form = self.wait.until(ec.visibility_of_element_located(self.RESULT_FORM))
         assert result_form.is_displayed(), "Таблица с данным не отобразилась"
 
@@ -142,11 +148,11 @@ class AutomationPracticeFormPO:
             "Date of Birth": birth_day,
             "Subjects": subjects,
             "Hobbies": hobbies,
-            "Picture": "test_file.jpg", #file_name,
+            "Picture": "test_file.jpg",  # file_name,
             "Address": current_address,
             "State and City": f"{state} {city}"
         }
-        
+
         # AssertionError: Значения *\test_file.jpg из строки Picture не совпадают!
         for key, value in expected_data.items():
             if isinstance(value, tuple):
@@ -155,4 +161,3 @@ class AutomationPracticeFormPO:
 
     def tear_down(self):
         self.driver.quit()
-
