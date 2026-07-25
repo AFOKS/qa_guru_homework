@@ -45,7 +45,7 @@ class Calendar:
         year_select.select_by_visible_text(year)
 
         # День должен быть с ведущим нулем
-        day_padded = f"{int(day):03d}"
+        #day_padded = f"{int(day):03d}"
 
         self.driver.find_element(
             By.CSS_SELECTOR,
