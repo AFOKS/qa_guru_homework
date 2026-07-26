@@ -133,7 +133,7 @@ class AutomationPracticeFormPO:
         self._click_submit_button()
 
     #  со временем вынести в тесты или создать несколько разных методов assert под нужды разных тестов
-    def assert_form(self, file_name=None, first_name=None, last_name=None, email=None, gender=None, user_number=None,
+    def assert_form(self,first_name=None, last_name=None, email=None, gender=None, user_number=None,
                     birth_day=None, subjects=None, hobbies=None, current_address=None, state=None, city=None):
         result_form = self.wait.until(ec.visibility_of_element_located(self.RESULT_FORM))
         assert result_form.is_displayed(), "Таблица с данным не отобразилась"
