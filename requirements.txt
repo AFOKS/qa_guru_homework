@@ -1,3 +1,4 @@
 pytest==9.1.1
 selenium>=4.12.0,<4.17.0
 selenium-page-factory==2.8
+allure-pytest==2.16.0
