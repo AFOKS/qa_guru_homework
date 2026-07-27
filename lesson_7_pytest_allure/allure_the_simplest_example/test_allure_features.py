@@ -185,3 +185,4 @@ def test_admin_and_guest(make_user):
 # pip install -r requirements.txt
 # pytest .\test_allure_features.py
 # allure serve .\allure-results\
+#

@@ -1,4 +1,4 @@
-# math_utils.py
+## math_utils.py
 
 def divide(a, b):
     if b == 0:
