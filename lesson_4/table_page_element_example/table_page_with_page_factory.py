@@ -8,6 +8,7 @@ from seleniumpagefactory.Pagefactory import PageFactory
 class TablesPage(PageFactory):
 
     def __init__(self, driver):
+        super().__init__()
         self.driver = driver
 
         self.locators = {

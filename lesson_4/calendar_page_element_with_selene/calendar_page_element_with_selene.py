@@ -2,8 +2,9 @@ import time
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait, Select
+from selenium.common.exceptions import TimeoutException
 
 
 class Calendar:
@@ -17,17 +18,17 @@ class Calendar:
         # Закрываем рекламный баннер, если он появился
         try:
             close_button = self.wait.until(
-                EC.element_to_be_clickable(
+                ec.element_to_be_clickable(
                     (By.CSS_SELECTOR, "#fixedban button")
                 )
             )
             close_button.click()
 
             self.wait.until(
-                EC.invisibility_of_element(close_button)
+                ec.invisibility_of_element(close_button)
             )
-        except:
-            # Баннер может отсутствовать
+        except TimeoutException:
+            # Баннер отсутствует
             pass
 
         self.input_field.click()
@@ -47,9 +48,11 @@ class Calendar:
         # День должен быть с ведущим нулем
         #day_padded = f"{int(day):03d}"
 
+        day_padded = f"{int(day):03d}"
+
         self.driver.find_element(
             By.CSS_SELECTOR,
-            f".react-datepicker__day--015:not(.react-datepicker__day--outside-month)"
+            f".react-datepicker__day--{day_padded}:not(.react-datepicker__day--outside-month)"
         ).click()
 
 
