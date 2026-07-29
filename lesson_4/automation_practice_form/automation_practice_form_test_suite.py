@@ -7,16 +7,21 @@ import automation_practice_form_po
 class AutomationPracticeFormTestSuite:
     def __init__(self):
         self.automation_practice_form = automation_practice_form_po.AutomationPracticeFormPO(
-            "https://qa-guru.github.io/one-page-form/automation-practice-form.html")
+            "https://qa-guru.github.io/one-page-form/automation-practice-form.html"
+        )
+        self.tmp_file_name = ""
 
     def setup(self):
         self.automation_practice_form.setup()
         self.tmp_file_name = self._create_tmp_file()
 
-    def _create_tmp_file(self):
-        file_path = os.path.abspath('test_file.jpg')
-        with open(file_path, 'w') as file:
+    @staticmethod
+    def _create_tmp_file() -> str:
+        file_path = os.path.abspath("test_file.jpg")
+
+        with open(file_path, "w") as file:
             file.write("Test")
+
         return file_path
 
     def test_form_positive01(self):

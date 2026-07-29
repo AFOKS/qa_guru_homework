@@ -10,10 +10,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 class PracticeForm:
 
-    def __init__(self):
+    def __init__(self): # бъявить атрибут сразу в __init__
         self.driver = webdriver.Chrome()
         self.wait = WebDriverWait(self.driver, 5)
         self.url = "https://qa-guru.github.io/one-page-form/automation-practice-form.html"
+
+        self.test_file = None
 
     PRACTICE_FORM_TITLE = (By.XPATH, "//main//h1")
     FIRST_NAME_FIELD = (By.ID, "firstName")
@@ -68,10 +70,13 @@ class PracticeForm:
         Select(self.driver.find_element(*self.MONTH_OF_BIRTH_SELECT)).select_by_value(month)
         self.driver.find_element(By.CSS_SELECTOR, f".react-datepicker__day--0{day}[tabindex='0']").click()
 
-    def create_test_file(self):
-        file_path = os.path.abspath('test_file.jpg')
-        with open(file_path, 'w') as file:
+    @staticmethod # сделал мето добавления файла статическим
+    def create_test_file():
+        file_path = os.path.abspath("test_file.jpg")
+
+        with open(file_path, "w") as file:
             file.write("Test")
+
         return file_path
 
     def upload_file(self, file_path):

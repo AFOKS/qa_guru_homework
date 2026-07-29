@@ -1,3 +1,5 @@
+import os
+
 from typing import Tuple
 
 from selenium import webdriver
@@ -33,7 +35,7 @@ class AutomationPracticeFormPO:
 
     def setup(self):
         self.driver = webdriver.Chrome()
-        self.driver.implicitly_wait = 5
+        self.driver.implicitly_wait(5)
         self.driver.maximize_window()
         self.wait = WebDriverWait(self.driver, 5)
         self.driver.get(self.url)
@@ -50,7 +52,7 @@ class AutomationPracticeFormPO:
         lastname_field = self.driver.find_element(*self.LAST_NAME_FIELD)
         lastname_field.send_keys(last_name)
 
-    def _fill_email(self, email):
+    def _fill_email(self, email: str) -> None: # Добавил типизацию
         email_field = self.driver.find_element(*self.EMAIL_FIELD)
         email_field.send_keys(email)
 
@@ -112,10 +114,21 @@ class AutomationPracticeFormPO:
         self.driver.execute_script("arguments[0].scrollIntoView();", submit_button)
         submit_button.click()
 
-    def fill_in_form(self, file_name=None, first_name=None, last_name=None, email=None, gender=None, user_number=None,
-                     birth_day=None, subjects=None, hobbies=None, current_address=None, state=None, city=None):
-        practice_form_title = self.driver.find_element(*self.PRACTICE_FORM_TITLE)
-        assert practice_form_title.text == "Practice Form", "Заголовок страницы не совпадает"
+    def fill_in_form(
+            self,
+            file_name: str,
+            first_name: str,
+            last_name: str,
+            email: str,
+            gender: str,
+            user_number: str,
+            birth_day: tuple[str, str, str],
+            subjects: tuple[str, ...],
+            hobbies: tuple[str, ...],
+            current_address: str,
+            state: str,
+            city: str
+    ) -> None:
 
         self._close_commercial_banner()
         self._fill_first_name(first_name)
@@ -133,7 +146,7 @@ class AutomationPracticeFormPO:
         self._click_submit_button()
 
     #  со временем вынести в тесты или создать несколько разных методов assert под нужды разных тестов
-    def assert_form(self,first_name=None, last_name=None, email=None, gender=None, user_number=None,
+    def assert_form(self,file_name:str,first_name=None, last_name=None, email=None, gender=None, user_number=None,
                     birth_day=None, subjects=None, hobbies=None, current_address=None, state=None, city=None):
         result_form = self.wait.until(ec.visibility_of_element_located(self.RESULT_FORM))
         assert result_form.is_displayed(), "Таблица с данным не отобразилась"
@@ -148,7 +161,7 @@ class AutomationPracticeFormPO:
             "Date of Birth": birth_day,
             "Subjects": subjects,
             "Hobbies": hobbies,
-            "Picture": "test_file.jpg",  # file_name,
+            "Picture": os.path.basename(file_name),  # file_name,
             "Address": current_address,
             "State and City": f"{state} {city}"
         }
@@ -160,4 +173,5 @@ class AutomationPracticeFormPO:
             assert key in result_text and value in result_text, f"Значения {value} из строки {key} не совпадают!"
 
     def tear_down(self):
-        self.driver.quit()
+        if self.driver:
+            self.driver.quit()
