@@ -4,6 +4,15 @@ from seleniumpagefactory.Pagefactory import PageFactory
 
 
 class BasePage(PageFactory):
+
+    URL = None
+
+    def open(self):
+        if self.URL is None:
+            raise ValueError("URL не задан")
+
+        self.driver.get(self.URL)
+
     """
     Базовый класс всех страниц проекта.
 

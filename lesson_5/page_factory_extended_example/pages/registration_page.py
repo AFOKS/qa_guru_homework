@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
 
 from pages.base_page import BasePage
 
@@ -55,11 +56,13 @@ class RegistrationPage(BasePage):
 
         try:
             banner = self.driver.find_element(By.ID, "fixedban")
+
             self.driver.execute_script(
                 "arguments[0].style.display='none';",
                 banner
             )
-        except:
+
+        except NoSuchElementException:
             pass
 
     # --------------------------------------------------
