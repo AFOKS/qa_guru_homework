@@ -57,9 +57,10 @@ class AutomationPracticeFormPage(BasePage):
 
         # Кастомные выпадающие списки (React-Select) штата и города
         'state_dropdown': ('ID', 'state'),
-        'state_input': ('XPATH', "//div[@id='state']//input"),
+        'state_options': ('XPATH',"//div[@id='stateCity-wrapper']//div[contains(@class,'state-city-option')]"),
+
         'city_dropdown': ('ID', 'city'),
-        'city_input': ('XPATH', "//div[@id='city']//input"),
+        'city_options': ('XPATH',"//div[@id='city']//following-sibling::div//div[contains(@class,'state-city-option')]"),
 
         'submit_button': ('ID', 'submit'),
 
@@ -100,10 +101,6 @@ class AutomationPracticeFormPage(BasePage):
         # Выбор из стандартных HTML-селектов внутри виджета
         self.calendar_year_select.select_element_by_value(year)
         self.calendar_month_select.select_element_by_text(month)
-
-        print("Year:", self.calendar_year_select.get_attribute("value"))
-        print("Month:", self.calendar_month_select.get_attribute("value"))
-
 
         # Динамическая замена плейсхолдера в XPATH для выбора дня
         xpath_tuple = self.locators['calendar_target_day']
@@ -147,16 +144,39 @@ class AutomationPracticeFormPage(BasePage):
         self.upload_picture_btn.send_keys(file_path)
 
     def fill_address_and_location(self, address: str, state: str, city: str):
-        """Заполнение адреса и работа со сложными кастомными выпадающими списками."""
+
         self.current_address.set_text(address)
 
-        # Для кастомных выпадающих списков React-Select: скроллим, вводим текст и нажимаем ENTER
-        self.driver.execute_script("arguments[0].scrollIntoView(true);", self.state_dropdown)
-        self.state_input.send_keys(state)
-        self.state_input.send_keys(Keys.ENTER)
+        # выбираем State
+        self.driver.execute_script(
+            "arguments[0].scrollIntoView({block: 'center'});",
+            self.state_dropdown
+        )
 
-        self.city_input.send_keys(city)
-        self.city_input.send_keys(Keys.ENTER)
+        self.state_dropdown.click_button()
+
+        state_options = self.driver.find_elements(
+            self.TYPE_OF_LOCATORS["xpath"],
+            self.locators["state_options"][1]
+        )
+
+        for option in state_options:
+            if option.text == state:
+                option.click()
+                break
+
+        # выбираем City
+        self.city_dropdown.click_button()
+
+        city_options = self.driver.find_elements(
+            self.TYPE_OF_LOCATORS["xpath"],
+            self.locators["city_options"][1]
+        )
+
+        for option in city_options:
+            if option.text == city:
+                option.click()
+                break
 
     def submit_form(self):
         """Финальная отправка формы кликом по кнопке Submit через JavaScript (защита от перекрытия футером)."""
