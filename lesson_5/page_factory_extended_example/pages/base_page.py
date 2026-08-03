@@ -5,13 +5,12 @@ from seleniumpagefactory.Pagefactory import PageFactory
 
 class BasePage(PageFactory):
 
-    URL = None
+    def __init__(self, driver):
+        self.driver = driver
+        self.timeout = 10
 
-    def open(self):
-        if self.URL is None:
-            raise ValueError("URL не задан")
-
-        self.driver.get(self.URL)
+    def open(self, url):
+        self.driver.get(url)
 
     """
     Базовый класс всех страниц проекта.
