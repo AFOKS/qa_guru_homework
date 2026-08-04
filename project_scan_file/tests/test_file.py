@@ -1,14 +1,17 @@
 import json
-
+import pytest
 
 
 def test_data_files(data_file):
-    print(f"\nПроверяем файл: {data_file.name}")
+    match data_file.suffix:
+        case ".txt":
+            content = data_file.read_text(encoding="utf-8")
+            assert content.strip()
 
-    if data_file.suffix == ".txt":
-        content = data_file.read_text(encoding="utf-8")
-        assert len(content) > 0
+        case ".json":
+            content = json.loads(data_file.read_text(encoding="utf-8"))
+            assert isinstance(content, dict)
+            assert content
 
-    elif data_file.suffix == ".json":
-        content = json.loads(data_file.read_text(encoding="utf-8"))
-        assert isinstance(content, dict)
+        case _:
+            pytest.fail(f"Неизвестный формат файла: {data_file}")
