@@ -1,0 +1,14 @@
+{
+  "id": 1,
+  "name": "Иван",
+  "email": "ivan@example.com",
+  "is_active": true,
+  "age": 28,
+  "skills": ["Python", "JavaScript", "SQL"],
+  "address": {
+    "city": "Москва",
+    "street": "Ленина",
+    "zip": "101000"
+  },
+  "phone": null
+}
