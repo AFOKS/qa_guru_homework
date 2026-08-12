@@ -22,6 +22,7 @@ def mobile_browser():
     driver.quit()
 
 
+
 def test_github_desktop(desktop_browser):
     desktop_browser.get("https://github.com/")
 
