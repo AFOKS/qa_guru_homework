@@ -47,19 +47,16 @@ def test_github_sign_up_desktop(desktop_browser):
 def test_github_sign_up_mobile(mobile_browser):
     mobile_browser.get("https://github.com/")
 
-    # Открываем бургер
+    # Открываем бургер-меню
     mobile_browser.find_element(
-        By.CSS_SELECTOR, # нормально, что такой большой локатор? выглядит некрасиво
-        "body > div.logged-out.env-production.page-responsive.header-overlay.header-overlay-fixed.js-header-overlay-fixed > div.position-relative.header-wrapper.js-header-wrapper > react-partial:nth-child(24) > div > header > div > div.MarketingHeader-module__topRow__yeury > div.MarketingHeader-module__toggleSlot__hDxbh > button"
+        By.CSS_SELECTOR,
+        "button[aria-label='Toggle navigation']"
     ).click()
 
-    # Ищем и кликаем Sign up
+    # Кликаем Sign up
     mobile_browser.find_element(
         By.XPATH,
-        "//a[contains(normalize-space(), 'Sign up')]"
+        "//a[normalize-space()='Sign up']"
     ).click()
 
     assert "/signup" in mobile_browser.current_url
-
-
-
