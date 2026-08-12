@@ -1,18 +1,41 @@
-"""
-Параметризуйте фикстуру несколькими вариантами размеров окна
-Пропустите мобильный тест, если соотношение сторон десктопное (и наоборот)
-"""
 import pytest
+from selenium import webdriver
 
 
-@pytest.fixture()
-def browser():
-    pass
+@pytest.fixture(
+    params=[
+        (1920, 1080),
+        (390, 844),
+    ]
+)
+def browser(request):
+    driver = webdriver.Chrome()
+
+    width, height = request.param
+    driver.set_window_size(width, height)
+
+    yield driver
+
+    driver.quit()
 
 
 def test_github_desktop(browser):
-    pass
+    width = browser.get_window_size()["width"]
+
+    if width < 1000:
+        pytest.skip("Пропускаем desktop-тест для мобильного разрешения")
+
+    browser.get("https://github.com/")
+
+    assert width >= 1000
 
 
 def test_github_mobile(browser):
-    pass
+    width = browser.get_window_size()["width"]
+
+    if width >= 1000:
+        pytest.skip("Пропускаем mobile-тест для desktop-разрешения")
+
+    browser.get("https://github.com/")
+
+    assert width < 1000
