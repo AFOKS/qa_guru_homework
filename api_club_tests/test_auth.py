@@ -116,8 +116,6 @@ def test_unsupported_media_type():
 
 
 
-#  implement more test - missing username, missing username&password, wrong body type (None, True, 123, "text", [])
-
 def test_wrong_content_type_auth():
     request_body = {"username": USERNAME, "password": PASSWORD}
     headers = {"content-type": "image/png"}
