@@ -114,8 +114,6 @@ def test_unsupported_media_type():
 
     assert "Unsupported media type" in body["detail"]
 
-
-
 def test_wrong_content_type_auth():
     request_body = {"username": USERNAME, "password": PASSWORD}
     headers = {"content-type": "image/png"}
